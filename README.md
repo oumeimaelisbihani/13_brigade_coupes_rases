@@ -61,6 +61,8 @@ L'ideeèr du projet est de créer une architecture modulaire qui permet d'automa
 |
 ├── 📁 data_pipeline/ (contient les scripts pour collecter et traiter les données)
 |
+├── 📁 analytics/ (contient les scripts pour analyser et visualiser les données)
+|
 └── 📁 misc/ (contient les scripts supplémentaires ou de support, exploration de donnés, etc)
 ```
 
