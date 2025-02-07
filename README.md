@@ -28,14 +28,26 @@ Optionellement :
 Pour contribuer, il est recommandé d'utiliser un fork du projet. Cela permet d'éviter la gestion des demandes d'accès au dépôt principal.
 
 Dans un premier temps, cliquez sur Fork pour récupérer le projet dans votre espace GitHub.
+
 - Créez votre branche de travail à partir de la branche main, en respectant la nomenclature suivante:
     - feature/nom_de_la_feature pour une nouvelle fonctionnalité
     - chore/nom_du_chore pour une modification de code qui ne change pas l'interface utilisateur ou les fonctionnalités existantes
     - hotfix/nom_du_hotfix pour une correction rapide
+
 - Poussez votre code vers votre dépôt distant.
+
+- Chaque commit doit suivre la convention de style suivante :
+    - Complete convention cheatsheet [HERE](https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13)
+    - Structure: 
+        - [Type] (optional scope): [Description]
+        - [Optional Body]
+        - [Optional Footer]
+    - Exemple : chore(readme): ajouter détails pour contribuer au repo
+
 - Créez une pull request en spécifiant :
     - Base repository : dataforgood/13_brigade_coupes_rases/main
     - Head repository : YourGithubAccount/13_brigade_coupes_rases/your_branch
+
 - Pour faciliter la revue de la pull request :
     - Liez la pull request à un ticket NocoDB en ajoutant le lien du ticket dans la description.
     - Rédigez une description détaillée de la pull request afin de fournir un maximum d’informations sur les modifications apportées.
