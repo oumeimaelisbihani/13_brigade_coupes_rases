@@ -1,11 +1,84 @@
-# Template DataForGood
+# Brigade des Coupes Rases 🌳
 
-This file will become your README and also the index of your
-documentation.
+# Contexte du Projet
+
+La déforestation et les coupes rases illégales représentent une menace majeure pour les écosystèmes et la biodiversité. Cependant, il existe un manque de transparence et de contrôle efficace sur ces pratiques, rendant difficile leur suivi et leur régulation.
+
+Canopée, une association engagée pour la protection des forêts, cherche à automatiser la détection des coupes rases abusives en utilisant un algorithme de surveillance satellite. Actuellement, les alertes générées doivent être centralisées, analysées et validées, mais ce processus reste manuel et fastidieux.
+
+# Objectifs du Projet
+
+L’objectif est de développer une solution complète pour :
+	•	Automatiser le traitement des données des coupes rases détectées par l’algorithme existant (GlobEO).
+	•	Créer une base de données pour stocker et organiser les informations sur chaque coupe rase détectée.
+	•	Créer une application permettant d’interagir avec la base de données pour ajouter, modifier ou supprimer des informations sur chaque coupe rase détectée.
+	•	Développer une interface de visualisation pour identifier les coupes rases illégales et générer des statistiques exploitables.
+Optionellement :
+    •	Repliquer l'identification de coupe rases (algorithme existant fourni par GlobEO) poour reduire le temps de mise a jour du processus existant.
 
 # Contributing
 
-## Installer Poetry
+## Pour commencer
+1. [Rejoindre](https://dataforgood.fr/join) la communauté Data For Good
+2. Sur le slack Data For Good, rejoindre le canal _#13_brigade_coupes_rases et se présenter
+3. Remplir le [formulaire](https://noco.services.dataforgood.fr/dashboard/#/nc/form/da3564a9-5422-4810-a56f-26122c06dddc)
+4. Explorer la documentation du projet. Familiarisez vous avec le projet, ses objectifs via [Outline](https://outline.services.dataforgood.fr/doc/presentation-du-projet-p8g6j1J3ZT). Notamment, vous trouverez les CR des premières réunions avec Canopée qui spécifient les avancées du projet.
+
+## Pour contribuer
+Pour contribuer, il est recommandé d'utiliser un fork du projet. Cela permet d'éviter la gestion des demandes d'accès au dépôt principal.
+
+Dans un premier temps, cliquez sur Fork pour récupérer le projet dans votre espace GitHub.
+
+- Créez votre branche de travail à partir de la branche main, en respectant la nomenclature suivante:
+    - feature/nom_de_la_feature pour une nouvelle fonctionnalité
+    - chore/nom_du_chore pour une modification de code qui ne change pas l'interface utilisateur ou les fonctionnalités existantes
+    - hotfix/nom_du_hotfix pour une correction rapide
+
+- Poussez votre code vers votre dépôt distant.
+
+- Chaque commit doit suivre la convention de style suivante :
+    - Complete convention cheatsheet [HERE](https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13)
+    - Structure: 
+        - [Type] (optional scope): [Description]
+        - [Optional Body]
+        - [Optional Footer]
+    - Exemple : chore(readme): ajouter détails pour contribuer au repo
+
+- Créez une pull request en spécifiant :
+    - Base repository : dataforgood/13_brigade_coupes_rases/main
+    - Head repository : YourGithubAccount/13_brigade_coupes_rases/your_branch
+
+- Pour faciliter la revue de la pull request :
+    - Liez la pull request à un ticket NocoDB en ajoutant le lien du ticket dans la description.
+    - Rédigez une description détaillée de la pull request afin de fournir un maximum d’informations sur les modifications apportées.
+
+# Architecture du Projet (sujet à améliorer et definir selon les expertises des volonteurs)
+
+L'ideeèr du projet est de créer une architecture modulaire qui permet d'automatiser le traitement des données, de stocker et organiser les informations dans une base de données, et de fournir une interface utilisateur pour interagir avec cette base de données. Voici un exemple possible de l'architecture :
+
+1. **GlobEO Algorithme** : L’algorithme GlobEO détecte les coupes rases dans les images. Télécharger les données de l’algorithme GlobEO dans un format approprié (par exemple, CSV ou JSON).
+2. **Traitement des Données** : (À definir) Le traitement des données est effectué par un script Python pour manipuler et analyser les données. Selon les besoins, cela pourrait évoluer (par exemple, orchestration, data quality, monitoring, etc.)
+3. **Base de Données** : (À definir) Base de données PostgreSQL avec PostGIS pour stocker les coupes rases et leurs métadonnées spatiales. Cela aussie devrait faciliter le processement spatiale. 
+4. **Application Web** : (À definir) Une application web Flask ou FastAPI est développée pour gérer (opérations CRUD) les données relatives à chaque coupe rase détectée. (avec un service d'authentification pour les utilisateurs administrateurs). 
+5. **Interface de Visualisation** : (À definir) Une interface web utilisant Leaflet ou Mapbox est créée pour visualiser les coupes rases sur une carte. Framework aussi à définir.
+
+## Structure du projet
+
+```
+📁 13_brigade_coupes_rases
+|
+├── 📁 backend/ (contient l'API et la gestion de la base de données)
+|
+├── 📁 frontend/ (contient le code frontend pour la visualisation de données et les formulaires)
+|
+├── 📁 data_pipeline/ (contient les scripts pour collecter et traiter les données)
+|
+├── 📁 analytics/ (contient les scripts pour analyser et visualiser les données)
+|
+└── 📁 misc/ (contient les scripts supplémentaires ou de support, exploration de donnés, etc)
+```
+
+### Installer Poetry
 
 Plusieurs [méthodes d'installation](https://python-poetry.org/docs/#installation) sont décrites dans la documentation de poetry dont:
 
@@ -37,13 +110,13 @@ Par exemple pour Ubuntu 23.04+:
 L'installation avec l'installateur officiel nécessitant quelques étapes supplémentaires,
 se référer à la [documentation officielle](https://python-poetry.org/docs/#installing-with-the-official-installer).
 
-## Utiliser un venv python
+### Utiliser un venv python
 
     python3 -m venv .venv
 
     source .venv/bin/activate
 
-## Utiliser Poetry
+### Utiliser Poetry
 
 Installer les dépendances:
 
@@ -57,12 +130,12 @@ Mettre à jour les dépendances:
 
     poetry update
 
-## Lancer les precommit-hook localement
+### Lancer les precommit-hook localement
 
 [Installer les precommit](https://pre-commit.com/)
 
     pre-commit run --all-files
 
-## Utiliser Tox pour tester votre code
+### Utiliser Tox pour tester votre code
 
-    tox -vv
+    tox -v
