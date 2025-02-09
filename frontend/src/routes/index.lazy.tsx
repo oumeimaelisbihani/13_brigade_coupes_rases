@@ -1,3 +1,4 @@
+import { AppLayout } from "@/core/components/AppLayout";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/")({
@@ -5,5 +6,5 @@ export const Route = createLazyFileRoute("/")({
 });
 
 function RouteComponent() {
-	return <div>Hello "/"!</div>;
+	return <AppLayout>Root</AppLayout>;
 }

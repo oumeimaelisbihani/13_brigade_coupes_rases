@@ -1,5 +1,6 @@
 import type { LatLngExpression, PathOptions } from "leaflet";
-import { MapContainer, Polygon, TileLayer } from "react-leaflet";
+import { MapContainer, Polygon, Polyline, TileLayer } from "react-leaflet";
+import { ClearCuttings } from "./ClearCuttings";
 
 export function InteractiveMap() {
 	const center: LatLngExpression = [51.505, -0.09];
@@ -20,16 +21,16 @@ export function InteractiveMap() {
 
 	return (
 		<MapContainer
-			className="h-screen"
+			className="h-full"
 			center={center}
 			zoom={13}
-			scrollWheelZoom={false}
+			scrollWheelZoom={true}
 		>
 			<TileLayer
 				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 			/>
-
+			<ClearCuttings />
 			<Polygon pathOptions={purpleOptions} positions={multiPolygon} />
 		</MapContainer>
 	);
