@@ -4,7 +4,7 @@ import "./index.css";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 // Import the generated route tree
 import { Provider } from "react-redux";
-import { store } from "./core/store";
+import { store } from "./core/store/store";
 import { routeTree } from "./routeTree.gen";
 
 async function enableMocking() {

@@ -1,4 +1,3 @@
-import { FiltersProvider } from "@/features/clear-cutting/contexts/filters";
 import { Outlet, createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_clear-cuttings")({
@@ -6,9 +5,5 @@ export const Route = createFileRoute("/_clear-cuttings")({
 });
 
 function RouteComponent() {
-	return (
-		<FiltersProvider>
-			<Outlet />
-		</FiltersProvider>
-	);
+	return <Outlet />;
 }

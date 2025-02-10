@@ -1,6 +1,19 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { ClearCuttingsResponse } from "./clear-cuttings";
-import type { Filters, FiltersResponse } from "./filters";
+import { selectFiltersRequest } from "@/features/clear-cutting/store/filters.slice";
+import { useAppSelector } from "@/shared/hooks/store";
+import {
+	createApi,
+	fetchBaseQuery,
+	skipToken,
+} from "@reduxjs/toolkit/query/react";
+import {
+	type ClearCuttingsResponse,
+	clearCuttingsResponseSchema,
+} from "./clear-cuttings";
+import {
+	type FiltersRequest,
+	type FiltersResponse,
+	filtersResponseSchema,
+} from "./filters";
 
 export const clearCuttingsApi = createApi({
 	reducerPath: "clearCuttings",
@@ -10,11 +23,21 @@ export const clearCuttingsApi = createApi({
 	endpoints: (builder) => ({
 		getFilters: builder.query<FiltersResponse, void>({
 			query: () => "filters",
+			transformResponse: (data) => filtersResponseSchema.parse(data),
 		}),
-		getClearCuttings: builder.query<ClearCuttingsResponse, Filters>({
+		getClearCuttings: builder.query<
+			ClearCuttingsResponse,
+			Readonly<FiltersRequest>
+		>({
 			query: (filters) => ({ url: "clear-cuttings", params: filters }),
+			transformResponse: (data) => clearCuttingsResponseSchema.parse(data),
 		}),
 	}),
 });
 
-export const { useGetFiltersQuery } = clearCuttingsApi;
+export const { endpoints, useGetFiltersQuery } = clearCuttingsApi;
+
+export function useGetClearCuttingsQuery() {
+	const filters = useAppSelector(selectFiltersRequest);
+	return clearCuttingsApi.useGetClearCuttingsQuery(filters ?? skipToken);
+}

@@ -1,8 +1,12 @@
 import { clearCuttingsApi } from "@/features/clear-cutting/store/api";
+import { filtersSlice } from "@/features/clear-cutting/store/filters.slice";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
-	reducer: { [clearCuttingsApi.reducerPath]: clearCuttingsApi.reducer },
+	reducer: {
+		[clearCuttingsApi.reducerPath]: clearCuttingsApi.reducer,
+		[filtersSlice.reducerPath]: filtersSlice.reducer,
+	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware().concat(clearCuttingsApi.middleware),
 });

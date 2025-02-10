@@ -1,6 +1,6 @@
 import { AppLayout } from "@/core/components/AppLayout";
-import { SidebarMenu } from "@/core/components/SidebarMenu";
-import * as InteractiveMap from "@/features/clear-cutting/components/map/InteractiveMap";
+import { InteractiveMap } from "@/features/clear-cutting/components/map/InteractiveMap";
+import { MapSidebar } from "@/features/clear-cutting/components/map/MapSidebar";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/_clear-cuttings/map")({
@@ -9,8 +9,8 @@ export const Route = createLazyFileRoute("/_clear-cuttings/map")({
 
 function RouteComponent() {
 	return (
-		<AppLayout sideBar={<SidebarMenu />}>
-			<InteractiveMap.InteractiveMap />
+		<AppLayout sideBar={<MapSidebar />}>
+			<InteractiveMap />
 		</AppLayout>
 	);
 }

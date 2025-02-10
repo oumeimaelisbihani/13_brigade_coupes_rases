@@ -1,13 +1,13 @@
 import { z } from "zod";
-import { pointSchema } from "./types";
+import { boundsSchema } from "./types";
 
-const filtersSchema = z.object({
+const filtersRequestSchema = z.object({
 	tags: z.array(z.string()),
-	cutYear: z.string().nullable(),
-	geoBounds: z.array(pointSchema),
+	cutYear: z.number().optional(),
+	geoBounds: boundsSchema,
 });
 
-export type Filters = z.infer<typeof filtersSchema>;
+export type FiltersRequest = z.infer<typeof filtersRequestSchema>;
 
 const tagSchema = z.object({
 	name: z.string(),
@@ -16,7 +16,7 @@ const tagSchema = z.object({
 export type Tag = z.infer<typeof tagSchema>;
 export const filtersResponseSchema = z.object({
 	tags: z.array(tagSchema),
-	cutYears: z.array(z.string()),
+	cutYears: z.array(z.number()),
 });
 
 export type FiltersResponse = z.infer<typeof filtersResponseSchema>;

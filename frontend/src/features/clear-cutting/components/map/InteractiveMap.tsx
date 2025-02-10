@@ -1,5 +1,5 @@
 import type { LatLngExpression, PathOptions } from "leaflet";
-import { MapContainer, Polygon, Polyline, TileLayer } from "react-leaflet";
+import { MapContainer, Polygon, TileLayer } from "react-leaflet";
 import { ClearCuttings } from "./ClearCuttings";
 
 export function InteractiveMap() {
