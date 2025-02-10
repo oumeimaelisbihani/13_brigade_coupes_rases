@@ -1,5 +1,5 @@
-import { SidebarMenu } from "@/core/components/SidebarMenu";
 import { List } from "@/features/clear-cutting/components/List";
+import { SidebarMenu } from "@/shared/components/SidebarMenu";
 
 export function MapSidebar() {
 	return (
