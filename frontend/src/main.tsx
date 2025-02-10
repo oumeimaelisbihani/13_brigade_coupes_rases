@@ -1,11 +1,10 @@
+import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./index.css";
-import { RouterProvider, createRouter } from "@tanstack/react-router";
-// Import the generated route tree
 import { Provider } from "react-redux";
-import { store } from "./core/store/store";
+import "./index.css";
 import { routeTree } from "./routeTree.gen";
+import { store } from "./shared/store/store";
 
 async function enableMocking() {
 	if (import.meta.env.MODE !== "development") {

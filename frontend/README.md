@@ -1,50 +1,59 @@
-# React + TypeScript + Vite
+# Frontend project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Purposes
 
-Currently, two official plugins are available:
+### Critical features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Review clear cuttings on a map or a list view  
+Allow users to edit clear cutting form to add extra information
 
-## Expanding the ESLint configuration
+## Development commands
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+To run in development mode : `pnpm dev`  
+To format and lint : `pnpm cleanup`
 
-- Configure the top-level `parserOptions` property like this:
+## VS Code configuration
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Please install the recommended extensions listed [recommended extensions file](../.vscode/extensions.json)
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Then use [workspace folder settings](./.vscode/settings.json)
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Technical choices
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+SPA : [React](https://fr.react.dev/) library, many usages among professional frontend developers  
+Map : [Leaflet](https://leafletjs.com/) and [React Leaflet](https://react-leaflet.js.org/) library, free map, allow to draw lines, polygons, circles on a map  
+CSS Framework : [Tailwind](https://tailwindcss.com/), flexible css design  
+State management : [RTK](https://redux-toolkit.js.org/), well suited state management with a good documentation  
+Build tool : [Vite](https://vite.dev/), fast and simple tool  
+Test framework : [Vitest](https://vitest.dev/), works well with Vite  
+Integration test : [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/), interacts with a computed dom to test UI  
+Mock server : [MSW](#-msw) intercept http requests and returns mocks  
+Format / Linter : [Biome](https://biomejs.dev/) formatter and linter, easier to configure than eslint and faster  
+Routing : [Tanstack router](https://tanstack.com/router/latest) files based routing, type safe router
+
+## Mocks
+
+To mocks api requests we use [msw](https://mswjs.io/)
+You can add mocks in the folder /src/mocks
+
+## Folders architecture
+
+### /features
+
+On subfolder by feature e.g : clear-cutting handle all features relative to clear cuttings, visualization, edition etc...
+
+### /routes
+
+File based routing please see[Tanstack router](https://tanstack.com/router/latest) documentation
+
+### /shared
+
+Available files in the whole project as components, hooks, store etc ...
+
+### /test
+
+Test files
+
+### /mocks
+
+List of mocks and http handlers

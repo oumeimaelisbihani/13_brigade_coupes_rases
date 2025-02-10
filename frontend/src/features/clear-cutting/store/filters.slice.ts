@@ -1,5 +1,3 @@
-import { createTypedDraftSafeSelector } from "@/core/store/selector";
-import type { RootState } from "@/core/store/store";
 import { endpoints } from "@/features/clear-cutting/store/api";
 import type {
 	FiltersRequest,
@@ -7,6 +5,8 @@ import type {
 } from "@/features/clear-cutting/store/filters";
 import type { Bounds } from "@/features/clear-cutting/store/types";
 import { type SelectableItem, toSelectableItems } from "@/shared/items";
+import { createTypedDraftSafeSelector } from "@/shared/store/selector";
+import type { RootState } from "@/shared/store/store";
 import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 interface FiltersState {
 	tags: SelectableItem<Tag>[];

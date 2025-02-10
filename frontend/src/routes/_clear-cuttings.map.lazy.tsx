@@ -1,6 +1,6 @@
-import { AppLayout } from "@/core/components/AppLayout";
 import { InteractiveMap } from "@/features/clear-cutting/components/map/InteractiveMap";
 import { MapSidebar } from "@/features/clear-cutting/components/map/MapSidebar";
+import { AppLayout } from "@/shared/components/AppLayout";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/_clear-cuttings/map")({
