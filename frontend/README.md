@@ -9,9 +9,9 @@ Allow users to edit clear cutting form to add extra information
 
 ## Development commands
 
-Install [node](https://nodejs.org/fr)
-Install package manager [pnpm](https://pnpm.io/fr/installation)
-Install dependencies : `pnpm i`
+Install [node](https://nodejs.org/fr)  
+Install package manager [pnpm](https://pnpm.io/fr/installation)  
+Install dependencies : `pnpm i`  
 To run in development mode : `pnpm dev`  
 To format and lint : `pnpm cleanup`
 
