@@ -9,6 +9,9 @@ Allow users to edit clear cutting form to add extra information
 
 ## Development commands
 
+Install [node](https://nodejs.org/fr)
+Install package manager [pnpm](https://pnpm.io/fr/installation)
+Install dependencies : `pnpm i`
 To run in development mode : `pnpm dev`  
 To format and lint : `pnpm cleanup`
 
@@ -20,6 +23,7 @@ Then use [workspace folder settings](./.vscode/settings.json)
 
 ## Technical choices
 
+Package manager : [PNPM](https://pnpm.io/fr/) centralized package manager for javascript packages, reduce amount of downloaded across multiple projects
 SPA : [React](https://fr.react.dev/) library, many usages among professional frontend developers  
 Map : [Leaflet](https://leafletjs.com/) and [React Leaflet](https://react-leaflet.js.org/) library, free map, allow to draw lines, polygons, circles on a map  
 CSS Framework : [Tailwind](https://tailwindcss.com/), flexible css design  
