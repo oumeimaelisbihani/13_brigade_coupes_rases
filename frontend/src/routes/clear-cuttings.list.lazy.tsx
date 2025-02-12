@@ -1,15 +1,17 @@
-import { List } from "@/features/clear-cutting/components/List";
+import { AsideList } from "@/features/clear-cutting/components/List";
 import { AppLayout } from "@/shared/components/AppLayout";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
-export const Route = createLazyFileRoute("/_clear-cuttings/list")({
+export const Route = createLazyFileRoute("/clear-cuttings/list")({
 	component: RouteComponent,
 });
 
 function RouteComponent() {
 	return (
 		<AppLayout>
-			<List />
+			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+				<AsideList />
+			</div>
 		</AppLayout>
 	);
 }

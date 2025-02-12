@@ -1,25 +1,49 @@
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { DisplayTypeMenu } from "@/features/clear-cutting/components/shared/DisplayTypeMenu";
 import { Filters } from "@/features/clear-cutting/components/shared/Filters";
 import { useGetClearCuttingsQuery } from "@/features/clear-cutting/store/api";
-
-export function List() {
+import Camera from "@mui/icons-material/CameraAltOutlined";
+export function AsideList() {
 	const { data } = useGetClearCuttingsQuery();
 	return (
-		<div>
+		<>
+			<DisplayTypeMenu />
 			<Filters />
-			<ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-				{data?.clearCuttings.map((clearCutting) => (
+			<ul className="grid grid-cols-1 gap-6 lg:grid-cols-2 overflow-auto ">
+				{data?.clearCuttingPreviews.map((clearCutting) => (
 					<li
 						key={clearCutting.id}
-						className="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow"
+						className="col-span-1 flex flex-col divide-y divide-gray-200  rounded-lg bg-white text-center shadow"
 					>
-						<div className="flex flex-1 flex-col p-8">
-							<h3 className="mt-6 text-sm font-medium text-gray-900">
-								{clearCutting.name}
-							</h3>
-						</div>
+						<Card>
+							<CardContent className="pt-6">
+								{clearCutting.imageUrl && (
+									<div
+										style={{ backgroundImage: `url(${clearCutting.imageUrl})` }}
+										className=" mx-auto w-full flex flex-row-reverse h-42 bg-auto bg-center bg-no-repeat"
+									>
+										{clearCutting.imagesCnt && (
+											<Badge variant="accent" className="gap-1 mt-auto">
+												{clearCutting.imagesCnt}
+												<Camera fontSize="small" />
+											</Badge>
+										)}
+									</div>
+								)}
+							</CardContent>
+							<CardFooter className="flex flex-col">
+								<h3 className="me-auto text-lg font-bold text-gray-800">
+									{clearCutting.name}
+								</h3>
+								<div className="me-auto text-md font-medium text-gray-600">
+									{clearCutting.address.postalCode} {clearCutting.address.city}
+								</div>
+							</CardFooter>
+						</Card>
 					</li>
 				))}
 			</ul>
-		</div>
+		</>
 	);
 }

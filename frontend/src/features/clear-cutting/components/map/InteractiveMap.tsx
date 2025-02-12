@@ -1,6 +1,6 @@
+import { ClearCuttings } from "@/features/clear-cutting/components/map/ClearCuttings";
 import type { LatLngExpression, PathOptions } from "leaflet";
 import { MapContainer, Polygon, TileLayer } from "react-leaflet";
-import { ClearCuttings } from "./ClearCuttings";
 
 export function InteractiveMap() {
 	const center: LatLngExpression = [51.505, -0.09];

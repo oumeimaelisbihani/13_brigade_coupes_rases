@@ -1,8 +1,8 @@
 import { string, z } from "zod";
 import { pointSchema } from "./types";
 
-const clearCuttingPreviewSchema = z.array(z.number());
-export type ClearCuttingPreview = z.infer<typeof clearCuttingPreviewSchema>;
+const clearCuttingPointsSchema = z.array(z.number());
+export type ClearCuttingPoint = z.infer<typeof clearCuttingPointsSchema>;
 const ecologicalZoningSchema = z.object({
 	id: z.string(),
 	name: z.string(),
@@ -10,7 +10,23 @@ const ecologicalZoningSchema = z.object({
 	logo: z.string().url(),
 });
 
-const clearCuttingSchema = z.object({
+const clearCuttingPreviewSchema = z.object({
+	id: z.string(),
+	geoCoordinates: z.array(pointSchema),
+	center: pointSchema,
+	name: z.string().optional(),
+	cutYear: z.number(),
+	address: z.object({
+		postalCode: z.string(),
+		city: z.string(),
+		country: z.string(),
+	}),
+	imageUrl: z.string().url().optional(),
+	imagesCnt: z.number().optional(),
+});
+export type ClearCuttingPreview = z.infer<typeof clearCuttingPreviewSchema>;
+
+export const clearCuttingSchema = z.object({
 	id: z.string(),
 	geoCoordinates: z.array(pointSchema),
 	name: z.string().optional(),
@@ -33,25 +49,17 @@ const clearCuttingSchema = z.object({
 	waterCourses: z.array(z.string()).optional(),
 	abusiveTags: z.array(z.string()).optional(),
 	customTags: z.array(z.string()).optional(),
+	imageUrls: z.array(z.string().url()),
 });
+
 export type ClearCutting = z.infer<typeof clearCuttingSchema>;
 
-export function isClearCutting(
-	val: ClearCutting | ClearCuttingPreview,
-): val is ClearCutting {
-	return (val as ClearCutting).id !== undefined;
-}
-export function isClearCuttingPreview(
-	val: ClearCutting | ClearCuttingPreview,
-): val is ClearCuttingPreview {
-	return !isClearCutting(val);
-}
 const waterCourseSchema = z.object({
 	id: z.string(),
 	geoCoordinates: z.array(pointSchema),
 });
 export const clearCuttingsResponseSchema = z.object({
-	clearCuttings: z.array(clearCuttingSchema),
+	clearCuttingsPoints: z.array(clearCuttingPointsSchema),
 	clearCuttingPreviews: z.array(clearCuttingPreviewSchema),
 	waterCourses: z.array(waterCourseSchema),
 	ecologicalZoning: z.array(ecologicalZoningSchema),

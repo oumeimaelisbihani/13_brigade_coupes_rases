@@ -1,3 +1,4 @@
+import type { Routes } from "@/shared/router";
 import FormatListBulletedOutlinedIcon from "@mui/icons-material/FormatListBulletedOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import { Link } from "@tanstack/react-router";
@@ -5,13 +6,17 @@ import clsx from "clsx";
 const navigation = [
 	{
 		name: "List",
-		to: "/list",
+		to: "/clear-cuttings/list" satisfies Routes,
 		icon: FormatListBulletedOutlinedIcon,
 	},
-	{ name: "Carte", to: "/map", icon: MapOutlinedIcon },
+	{
+		name: "Carte",
+		to: "/clear-cuttings/map" satisfies Routes,
+		icon: MapOutlinedIcon,
+	},
 ];
 
-export function SidebarMenu() {
+export function DisplayTypeMenu() {
 	return (
 		<div className="flex w-full justify-end  flex-row">
 			{navigation.map((item) => (

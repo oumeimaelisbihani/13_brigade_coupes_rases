@@ -9,7 +9,7 @@ import { type ReactNode, useState } from "react";
 import { Navbar } from "./Navbar";
 
 interface Props {
-	children: ReactNode;
+	children?: ReactNode;
 	sideBar?: ReactNode;
 }
 export function AppLayout({ children, sideBar }: Props) {

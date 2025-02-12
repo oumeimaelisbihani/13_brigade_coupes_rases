@@ -6,7 +6,9 @@ import {
 	skipToken,
 } from "@reduxjs/toolkit/query/react";
 import {
+	type ClearCutting,
 	type ClearCuttingsResponse,
+	clearCuttingSchema,
 	clearCuttingsResponseSchema,
 } from "./clear-cuttings";
 import {
@@ -25,6 +27,10 @@ export const clearCuttingsApi = createApi({
 			query: () => "filters",
 			transformResponse: (data) => filtersResponseSchema.parse(data),
 		}),
+		getClearCutting: builder.query<ClearCutting, string>({
+			query: (id) => `clear-cuttings/${id}`,
+			transformResponse: (data) => clearCuttingSchema.parse(data),
+		}),
 		getClearCuttings: builder.query<
 			ClearCuttingsResponse,
 			Readonly<FiltersRequest>
@@ -35,7 +41,8 @@ export const clearCuttingsApi = createApi({
 	}),
 });
 
-export const { endpoints, useGetFiltersQuery } = clearCuttingsApi;
+export const { endpoints, useGetFiltersQuery, useGetClearCuttingQuery } =
+	clearCuttingsApi;
 
 export function useGetClearCuttingsQuery() {
 	const filters = useAppSelector(selectFiltersRequest);

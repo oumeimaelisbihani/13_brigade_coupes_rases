@@ -13,20 +13,14 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as ClearCuttingsImport } from './routes/_clear-cuttings'
 
 // Create Virtual Routes
 
 const IndexLazyImport = createFileRoute('/')()
-const ClearCuttingsMapLazyImport = createFileRoute('/_clear-cuttings/map')()
-const ClearCuttingsListLazyImport = createFileRoute('/_clear-cuttings/list')()
+const ClearCuttingsMapLazyImport = createFileRoute('/clear-cuttings/map')()
+const ClearCuttingsListLazyImport = createFileRoute('/clear-cuttings/list')()
 
 // Create/Update Routes
-
-const ClearCuttingsRoute = ClearCuttingsImport.update({
-  id: '/_clear-cuttings',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const IndexLazyRoute = IndexLazyImport.update({
   id: '/',
@@ -35,19 +29,19 @@ const IndexLazyRoute = IndexLazyImport.update({
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
 const ClearCuttingsMapLazyRoute = ClearCuttingsMapLazyImport.update({
-  id: '/map',
-  path: '/map',
-  getParentRoute: () => ClearCuttingsRoute,
+  id: '/clear-cuttings/map',
+  path: '/clear-cuttings/map',
+  getParentRoute: () => rootRoute,
 } as any).lazy(() =>
-  import('./routes/_clear-cuttings.map.lazy').then((d) => d.Route),
+  import('./routes/clear-cuttings.map.lazy').then((d) => d.Route),
 )
 
 const ClearCuttingsListLazyRoute = ClearCuttingsListLazyImport.update({
-  id: '/list',
-  path: '/list',
-  getParentRoute: () => ClearCuttingsRoute,
+  id: '/clear-cuttings/list',
+  path: '/clear-cuttings/list',
+  getParentRoute: () => rootRoute,
 } as any).lazy(() =>
-  import('./routes/_clear-cuttings.list.lazy').then((d) => d.Route),
+  import('./routes/clear-cuttings.list.lazy').then((d) => d.Route),
 )
 
 // Populate the FileRoutesByPath interface
@@ -61,90 +55,63 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/_clear-cuttings': {
-      id: '/_clear-cuttings'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof ClearCuttingsImport
+    '/clear-cuttings/list': {
+      id: '/clear-cuttings/list'
+      path: '/clear-cuttings/list'
+      fullPath: '/clear-cuttings/list'
+      preLoaderRoute: typeof ClearCuttingsListLazyImport
       parentRoute: typeof rootRoute
     }
-    '/_clear-cuttings/list': {
-      id: '/_clear-cuttings/list'
-      path: '/list'
-      fullPath: '/list'
-      preLoaderRoute: typeof ClearCuttingsListLazyImport
-      parentRoute: typeof ClearCuttingsImport
-    }
-    '/_clear-cuttings/map': {
-      id: '/_clear-cuttings/map'
-      path: '/map'
-      fullPath: '/map'
+    '/clear-cuttings/map': {
+      id: '/clear-cuttings/map'
+      path: '/clear-cuttings/map'
+      fullPath: '/clear-cuttings/map'
       preLoaderRoute: typeof ClearCuttingsMapLazyImport
-      parentRoute: typeof ClearCuttingsImport
+      parentRoute: typeof rootRoute
     }
   }
 }
 
 // Create and export the route tree
 
-interface ClearCuttingsRouteChildren {
-  ClearCuttingsListLazyRoute: typeof ClearCuttingsListLazyRoute
-  ClearCuttingsMapLazyRoute: typeof ClearCuttingsMapLazyRoute
-}
-
-const ClearCuttingsRouteChildren: ClearCuttingsRouteChildren = {
-  ClearCuttingsListLazyRoute: ClearCuttingsListLazyRoute,
-  ClearCuttingsMapLazyRoute: ClearCuttingsMapLazyRoute,
-}
-
-const ClearCuttingsRouteWithChildren = ClearCuttingsRoute._addFileChildren(
-  ClearCuttingsRouteChildren,
-)
-
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
-  '': typeof ClearCuttingsRouteWithChildren
-  '/list': typeof ClearCuttingsListLazyRoute
-  '/map': typeof ClearCuttingsMapLazyRoute
+  '/clear-cuttings/list': typeof ClearCuttingsListLazyRoute
+  '/clear-cuttings/map': typeof ClearCuttingsMapLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
-  '': typeof ClearCuttingsRouteWithChildren
-  '/list': typeof ClearCuttingsListLazyRoute
-  '/map': typeof ClearCuttingsMapLazyRoute
+  '/clear-cuttings/list': typeof ClearCuttingsListLazyRoute
+  '/clear-cuttings/map': typeof ClearCuttingsMapLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
-  '/_clear-cuttings': typeof ClearCuttingsRouteWithChildren
-  '/_clear-cuttings/list': typeof ClearCuttingsListLazyRoute
-  '/_clear-cuttings/map': typeof ClearCuttingsMapLazyRoute
+  '/clear-cuttings/list': typeof ClearCuttingsListLazyRoute
+  '/clear-cuttings/map': typeof ClearCuttingsMapLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '' | '/list' | '/map'
+  fullPaths: '/' | '/clear-cuttings/list' | '/clear-cuttings/map'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/list' | '/map'
-  id:
-    | '__root__'
-    | '/'
-    | '/_clear-cuttings'
-    | '/_clear-cuttings/list'
-    | '/_clear-cuttings/map'
+  to: '/' | '/clear-cuttings/list' | '/clear-cuttings/map'
+  id: '__root__' | '/' | '/clear-cuttings/list' | '/clear-cuttings/map'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
-  ClearCuttingsRoute: typeof ClearCuttingsRouteWithChildren
+  ClearCuttingsListLazyRoute: typeof ClearCuttingsListLazyRoute
+  ClearCuttingsMapLazyRoute: typeof ClearCuttingsMapLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
-  ClearCuttingsRoute: ClearCuttingsRouteWithChildren,
+  ClearCuttingsListLazyRoute: ClearCuttingsListLazyRoute,
+  ClearCuttingsMapLazyRoute: ClearCuttingsMapLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -158,26 +125,18 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/_clear-cuttings"
+        "/clear-cuttings/list",
+        "/clear-cuttings/map"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
     },
-    "/_clear-cuttings": {
-      "filePath": "_clear-cuttings.tsx",
-      "children": [
-        "/_clear-cuttings/list",
-        "/_clear-cuttings/map"
-      ]
+    "/clear-cuttings/list": {
+      "filePath": "clear-cuttings.list.lazy.tsx"
     },
-    "/_clear-cuttings/list": {
-      "filePath": "_clear-cuttings.list.lazy.tsx",
-      "parent": "/_clear-cuttings"
-    },
-    "/_clear-cuttings/map": {
-      "filePath": "_clear-cuttings.map.lazy.tsx",
-      "parent": "/_clear-cuttings"
+    "/clear-cuttings/map": {
+      "filePath": "clear-cuttings.map.lazy.tsx"
     }
   }
 }

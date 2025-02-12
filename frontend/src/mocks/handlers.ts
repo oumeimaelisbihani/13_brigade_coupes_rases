@@ -1,5 +1,5 @@
 import type {
-	ClearCutting,
+	ClearCuttingPreview,
 	ClearCuttingsResponse,
 } from "@/features/clear-cutting/store/clear-cuttings";
 import type { FiltersResponse } from "@/features/clear-cutting/store/filters";
@@ -9,29 +9,51 @@ export const handlers = [
 	http.get("*/filters", () => {
 		return HttpResponse.json({
 			cutYears: [2021, 2022],
-			tags: [{ isAbusive: true, name: "moreThan10Hectares" }],
+			tags: [
+				{
+					isAbusive: true,
+					name: "Supérieur à 10 hectares",
+					id: faker.string.uuid(),
+				},
+			],
+			ecologicalZoning: [
+				{
+					id: faker.string.uuid(),
+					name: faker.company.buzzAdjective(),
+				},
+			],
 		} satisfies FiltersResponse);
 	}),
 	http.get("*/clear-cuttings", () => {
 		return HttpResponse.json({
-			clearCuttingPreviews: [],
-			clearCuttings: [createClearCutting()],
+			clearCuttingPreviews: [
+				createClearCutting(),
+				createClearCutting(),
+				createClearCutting(),
+				createClearCutting(),
+				createClearCutting(),
+				createClearCutting(),
+				createClearCutting(),
+				createClearCutting(),
+			],
+			clearCuttingsPoints: [],
 			ecologicalZoning: [],
 			waterCourses: [],
 		} satisfies ClearCuttingsResponse);
 	}),
 ];
 
-const createClearCutting = (): ClearCutting => ({
-	abusiveTags: ["moreThan10Hectares"],
+const createClearCutting = (): ClearCuttingPreview => ({
+	center: [faker.location.latitude(), faker.location.longitude()],
 	address: {
 		city: faker.location.city(),
 		country: faker.location.country(),
 		postalCode: faker.location.zipCode(),
-		streetName: faker.location.street(),
-		streetNumber: faker.location.buildingNumber(),
 	},
+	name: faker.animal.dog(),
 	cutYear: 2021,
-	id: "testId",
+	id: faker.string.uuid(),
+	imagesCnt: 5,
+	imageUrl: faker.image.url(),
 	geoCoordinates: [],
 });

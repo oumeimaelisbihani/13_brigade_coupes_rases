@@ -1,6 +1,6 @@
 import {
 	selectCutYears,
-	setCutYear,
+	toggleCutYear,
 } from "@/features/clear-cutting/store/filters.slice";
 import { ButtonGroup } from "@/shared/components/ButtonGroup";
 import { InputGroup } from "@/shared/components/InputGroup";
@@ -16,7 +16,7 @@ export function Filters() {
 				id="cutYears"
 				items={cutYears}
 				getLabel={getCutYearLabel}
-				onClick={(year) => dispatch(setCutYear(year))}
+				onClick={(year) => dispatch(toggleCutYear(year))}
 			/>
 		</InputGroup>
 	);

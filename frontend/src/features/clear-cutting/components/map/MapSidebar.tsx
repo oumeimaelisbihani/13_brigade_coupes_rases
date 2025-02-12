@@ -1,11 +1,5 @@
-import { List } from "@/features/clear-cutting/components/List";
-import { SidebarMenu } from "@/shared/components/SidebarMenu";
+import { AsideList } from "@/features/clear-cutting/components/List";
 
 export function MapSidebar() {
-	return (
-		<div>
-			<SidebarMenu />
-			<List />
-		</div>
-	);
+	return <AsideList />;
 }

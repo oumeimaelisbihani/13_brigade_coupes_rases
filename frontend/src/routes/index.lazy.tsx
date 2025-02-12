@@ -6,5 +6,5 @@ export const Route = createLazyFileRoute("/")({
 });
 
 function RouteComponent() {
-	return <AppLayout>Root</AppLayout>;
+	return <AppLayout />;
 }
