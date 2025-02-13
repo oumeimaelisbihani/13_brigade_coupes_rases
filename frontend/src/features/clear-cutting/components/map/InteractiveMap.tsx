@@ -1,29 +1,18 @@
 import { ClearCuttings } from "@/features/clear-cutting/components/map/ClearCuttings";
-import type { LatLngExpression, PathOptions } from "leaflet";
-import { MapContainer, Polygon, TileLayer } from "react-leaflet";
-
+import { useGeolocation } from "@/shared/hooks/geolocation";
+import type { LatLngExpression } from "leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
+const franceCenter: LatLngExpression = [46.695554, 2.440236];
+const wholeFranceZoom = 7;
 export function InteractiveMap() {
-	const center: LatLngExpression = [51.505, -0.09];
-	const multiPolygon: LatLngExpression[][] = [
-		[
-			[51.51, -0.12],
-			[51.51, -0.13],
-			[51.53, -0.13],
-		],
-		[
-			[51.51, -0.05],
-			[51.51, -0.07],
-			[51.53, -0.07],
-		],
-	];
-
-	const purpleOptions: PathOptions = { color: "purple" };
+	const { browserLocation } = useGeolocation();
+	console.log(browserLocation);
 
 	return (
 		<MapContainer
 			className="h-full"
-			center={center}
-			zoom={13}
+			center={franceCenter}
+			zoom={wholeFranceZoom}
 			scrollWheelZoom={true}
 		>
 			<TileLayer
@@ -31,7 +20,6 @@ export function InteractiveMap() {
 				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 			/>
 			<ClearCuttings />
-			<Polygon pathOptions={purpleOptions} positions={multiPolygon} />
 		</MapContainer>
 	);
 }

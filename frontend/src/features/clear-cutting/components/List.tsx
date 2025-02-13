@@ -6,6 +6,7 @@ import { useGetClearCuttingsQuery } from "@/features/clear-cutting/store/api";
 import Camera from "@mui/icons-material/CameraAltOutlined";
 export function AsideList() {
 	const { data } = useGetClearCuttingsQuery();
+
 	return (
 		<>
 			<DisplayTypeMenu />
@@ -21,14 +22,15 @@ export function AsideList() {
 								{clearCutting.imageUrl && (
 									<div
 										style={{ backgroundImage: `url(${clearCutting.imageUrl})` }}
-										className=" mx-auto w-full flex flex-row-reverse h-42 bg-auto bg-center bg-no-repeat"
+										className=" mx-auto w-full flex flex-row-reverse h-42 bg-cover bg-center bg-no-repeat"
 									>
-										{clearCutting.imagesCnt && (
-											<Badge variant="accent" className="gap-1 mt-auto">
-												{clearCutting.imagesCnt}
-												<Camera fontSize="small" />
-											</Badge>
-										)}
+										{clearCutting.imagesCnt !== undefined &&
+											clearCutting.imagesCnt > 0 && (
+												<Badge variant="accent" className="gap-1 mt-auto">
+													{clearCutting.imagesCnt}
+													<Camera fontSize="small" />
+												</Badge>
+											)}
 									</div>
 								)}
 							</CardContent>
