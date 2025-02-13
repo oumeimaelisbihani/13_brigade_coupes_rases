@@ -31,13 +31,13 @@ State management : [RTK](https://redux-toolkit.js.org/), well suited state manag
 Build tool : [Vite](https://vite.dev/), fast and simple tool  
 Test framework : [Vitest](https://vitest.dev/), works well with Vite  
 Integration test : [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/), interacts with a computed dom to test UI  
-Mock server : [MSW](#-msw) intercept http requests and returns mocks  
+Mock server : [MSW](https://mswjs.io/) intercept http requests and returns mocks  
 Format / Linter : [Biome](https://biomejs.dev/) formatter and linter, easier to configure than eslint and faster  
 Routing : [Tanstack router](https://tanstack.com/router/latest) files based routing, type safe router
 
 ## Mocks
 
-To mocks api requests we use [msw](https://mswjs.io/)
+To mocks api requests we use [MSW](https://mswjs.io/)
 You can add mocks in the folder /src/mocks
 
 ## Folders architecture
@@ -48,7 +48,7 @@ On subfolder by feature e.g : clear-cutting handle all features relative to clea
 
 ### /routes
 
-File based routing please see[Tanstack router](https://tanstack.com/router/latest) documentation
+File based routing please see [Tanstack router](https://tanstack.com/router/latest) documentation
 
 ### /shared
 
