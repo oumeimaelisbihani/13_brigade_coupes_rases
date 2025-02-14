@@ -12,7 +12,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    defaults:
+        run:
+          working-directory: frontend
+      
     strategy:
       matrix:
         node-version: [22.x]
@@ -20,9 +23,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Use frontend directory
-        run: cd frontend
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -35,8 +35,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
-
-
 
       - name: Install dependencies
         run: pnpm install
