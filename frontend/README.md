@@ -7,6 +7,11 @@
 Review clear cuttings on a map or a list view  
 Allow users to edit clear cutting form to add extra information
 
+## CI/CD
+
+### Build and test 
+A github action run on all branches to build and test code : [Front CI](../.github/workflows/frontend-ci.yml)  
+
 ## Development commands
 
 Install [node](https://nodejs.org/fr)  
