@@ -6,7 +6,7 @@ name: Frontend CI
 on:
   workflow_dispatch: 
   push:
-    branches: ["main"]
+    branches: ["main", "chore/front-ci-setup"]
   pull_request:
     branches: ["main"]
 
