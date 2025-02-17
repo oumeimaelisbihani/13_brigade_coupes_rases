@@ -36,10 +36,11 @@ jobs:
       - uses: dorny/paths-filter@v3
         id: filter
         with:
+          base: ${{ github.ref }}
           filters: |
             frontend:
             - 'frontend/**'
-
+            
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         if: ${{ steps.filter.outputs.frontend == 'true' }}
