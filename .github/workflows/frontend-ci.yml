@@ -10,6 +10,7 @@ on:
     branches: ["main"]
 
 jobs:
+
   build-test:
     runs-on: ubuntu-latest
     defaults:
@@ -22,7 +23,22 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - uses: actions/checkout@v4
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Checks to see if any files in the PR are located under the frontend folder.
+      # We can use this filter to decide whether or not to run a specific step.
+      # You can check if a change occured inside the frontend directory by doing:
+      # if: ${{ steps.filter.outputs.frontend == 'true' }}
+      # It is possible however to check the filter before running the steps.
+      # See https://github.com/dorny/paths-filter?tab=readme-ov-file#examples to find examples.
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            frontend:
+            - 'frontend/**'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -38,10 +54,13 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: pnpm install
 
       - name: Build project
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: pnpm run build
 
       - name: Run tests
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
         run: pnpm test
