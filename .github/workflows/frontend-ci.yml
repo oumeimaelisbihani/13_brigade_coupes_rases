@@ -6,11 +6,14 @@ name: Frontend CI
 on:
   workflow_dispatch:
   push:
+    paths:
+      - 'frontend/**'
   pull_request:
     branches: ["main"]
+    paths:
+      - 'frontend/**'
 
 jobs:
-
   build-test:
     runs-on: ubuntu-latest
     defaults:
@@ -23,52 +26,26 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+      - uses: actions/checkout@v4
 
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      # Checks to see if any files in the PR are located under the frontend folder.
-      # We can use this filter to decide whether or not to run a specific step.
-      # You can check if a change occured inside the frontend directory by doing:
-      # if: ${{ steps.filter.outputs.frontend == 'true' }}
-      # It is possible however to check the filter before running the steps.
-      # See https://github.com/dorny/paths-filter?tab=readme-ov-file#examples to find examples.
-      - uses: dorny/paths-filter@v3
-        id: filter
-        with:
-          # The base branch from which the changes will be detected (can be a tag or a commit as well).
-          # ${{ github.ref }} means that the changes will be detected from the committed files.
-          # By default, the base is set to the repository's default branch, which is main.
-          # See https://github.com/dorny/paths-filter?tab=readme-ov-file#usage
-          base: ${{ github.ref }}
-          filters: |
-            frontend:
-            - 'frontend/**'
-            
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        if: ${{ steps.filter.outputs.frontend == 'true' }}
         with:
           version: 10
           run_install: false
 
       - name: Install Node.js ${{ matrix.node-version }}
-        if: ${{ steps.filter.outputs.frontend == 'true' }}
         uses: actions/setup-node@v4
-        
         with:
           node-version: ${{ matrix.node-version }}
           cache-dependency-path: frontend/pnpm-lock.yaml
           cache: "pnpm"
 
       - name: Install dependencies
-        if: ${{ steps.filter.outputs.frontend == 'true' }}
         run: pnpm install
 
       - name: Build project
-        if: ${{ steps.filter.outputs.frontend == 'true' }}
         run: pnpm run build
 
       - name: Run tests
-        if: ${{ steps.filter.outputs.frontend == 'true' }}
         run: pnpm test
