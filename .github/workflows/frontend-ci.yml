@@ -25,7 +25,7 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       # Checks to see if any files in the PR are located under the frontend folder.
       # We can use this filter to decide whether or not to run a specific step.
