@@ -36,6 +36,10 @@ jobs:
       - uses: dorny/paths-filter@v3
         id: filter
         with:
+          # The base branch from which the changes will be detected (can be a tag or a commit as well).
+          # ${{ github.ref }} means that the changes will be detected from the committed files.
+          # By default, the base is set to the repository's default branch, which is main.
+          # See https://github.com/dorny/paths-filter?tab=readme-ov-file#usage
           base: ${{ github.ref }}
           filters: |
             frontend:
