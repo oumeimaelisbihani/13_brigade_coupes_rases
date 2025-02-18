@@ -6,7 +6,6 @@ const franceCenter: LatLngExpression = [46.695554, 2.440236];
 const wholeFranceZoom = 7;
 export function InteractiveMap() {
 	const { browserLocation } = useGeolocation();
-	console.log(browserLocation);
 
 	return (
 		<MapContainer

@@ -3,7 +3,8 @@ import {
 	type User,
 	userSchema,
 } from "@/features/user/store/user";
-import { api } from "@/shared/api";
+import { api } from "@/shared/api/api";
+import type { RequestedContent } from "@/shared/api/types";
 import { createTypedDraftSafeSelector } from "@/shared/store/selector";
 import type { RootState } from "@/shared/store/store";
 import {
@@ -35,42 +36,38 @@ export const loginThunk = createAsyncThunk(
 		return user;
 	},
 );
-const initialState: Partial<User> = {};
+
 export const userSlice = createSlice({
 	name: "user",
-	initialState,
+	initialState: { status: "idle" } as RequestedContent<User>,
 	reducers: {
 		setUser: (state, { payload: user }: PayloadAction<User>) => {
-			state.role = user.role;
-			if (user.role === "volunteer" && state.role === "volunteer") {
-				state.departments = user.departments;
-			}
-			state.email = user.email;
-			state.login = user.login;
-			state.avatarUrl = user.avatarUrl;
+			state.value = user;
+			state.status = "success";
 		},
 		logoutUser: (state) => {
-			state.avatarUrl = undefined;
-			state.email = undefined;
-			state.login = undefined;
-			state.role = undefined;
+			state.value = undefined;
+			state.status = "idle";
 			setStoredUser(undefined);
 		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(loginThunk.fulfilled, (state, { payload: user }) => {
-			state.role = user.role;
-			if (user.role === "volunteer" && state.role === "volunteer") {
-				state.departments = user.departments;
-			}
-			state.email = user.email;
-			state.login = user.login;
-			state.avatarUrl = user.avatarUrl;
+			state.status = "success";
+			state.value = user;
+		});
+		builder.addCase(loginThunk.rejected, (state, { error }) => {
+			console.error(error);
+			state.status = "error";
+			state.error = error;
+		});
+		builder.addCase(loginThunk.pending, (state) => {
+			state.status = "loading";
 		});
 	},
 });
 const selectState = (state: RootState) => state.user;
 export const selectLoggedUser = createTypedDraftSafeSelector(
 	selectState,
-	(user) => userSchema.safeParse(user).data,
+	(user) => userSchema.safeParse(user.value).data,
 );

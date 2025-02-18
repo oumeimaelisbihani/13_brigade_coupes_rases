@@ -13,18 +13,14 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as AuthImport } from './routes/_auth'
 import { Route as LoginImport } from './routes/login'
+import { Route as AuthImport } from './routes/_auth'
 
 // Create Virtual Routes
 
-const AuthIndexLazyImport = createFileRoute('/_auth/')()
-const AuthClearCuttingsMapLazyImport = createFileRoute(
-  '/_auth/clear-cuttings/map',
-)()
-const AuthClearCuttingsListLazyImport = createFileRoute(
-  '/_auth/clear-cuttings/list',
-)()
+const IndexLazyImport = createFileRoute('/')()
+const ClearCuttingsMapLazyImport = createFileRoute('/clear-cuttings/map')()
+const ClearCuttingsListLazyImport = createFileRoute('/clear-cuttings/list')()
 
 // Create/Update Routes
 
@@ -39,32 +35,39 @@ const AuthRoute = AuthImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthIndexLazyRoute = AuthIndexLazyImport.update({
+const IndexLazyRoute = IndexLazyImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AuthRoute,
-} as any).lazy(() => import('./routes/_auth.index.lazyx.lazy').then((d) => d.Route))
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
-const AuthClearCuttingsMapLazyRoute = AuthClearCuttingsMapLazyImport.update({
+const ClearCuttingsMapLazyRoute = ClearCuttingsMapLazyImport.update({
   id: '/clear-cuttings/map',
   path: '/clear-cuttings/map',
-  getParentRoute: () => AuthRoute,
+  getParentRoute: () => rootRoute,
 } as any).lazy(() =>
-  import('./routes/_auth.clear-cuttings.map.lazy').then((d) => d.Route),
+  import('./routes/clear-cuttings.map.lazy').then((d) => d.Route),
 )
 
-const AuthClearCuttingsListLazyRoute = AuthClearCuttingsListLazyImport.update({
+const ClearCuttingsListLazyRoute = ClearCuttingsListLazyImport.update({
   id: '/clear-cuttings/list',
   path: '/clear-cuttings/list',
-  getParentRoute: () => AuthRoute,
+  getParentRoute: () => rootRoute,
 } as any).lazy(() =>
-  import('./routes/_auth.clear-cuttings.list.lazy').then((d) => d.Route),
+  import('./routes/clear-cuttings.list.lazy').then((d) => d.Route),
 )
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/_auth': {
       id: '/_auth'
       path: ''
@@ -79,98 +82,84 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
-    '/_auth/': {
-      id: '/_auth/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof AuthIndexLazyImport
-      parentRoute: typeof AuthImport
-    }
-    '/_auth/clear-cuttings/list': {
-      id: '/_auth/clear-cuttings/list'
+    '/clear-cuttings/list': {
+      id: '/clear-cuttings/list'
       path: '/clear-cuttings/list'
       fullPath: '/clear-cuttings/list'
-      preLoaderRoute: typeof AuthClearCuttingsListLazyImport
-      parentRoute: typeof AuthImport
+      preLoaderRoute: typeof ClearCuttingsListLazyImport
+      parentRoute: typeof rootRoute
     }
-    '/_auth/clear-cuttings/map': {
-      id: '/_auth/clear-cuttings/map'
+    '/clear-cuttings/map': {
+      id: '/clear-cuttings/map'
       path: '/clear-cuttings/map'
       fullPath: '/clear-cuttings/map'
-      preLoaderRoute: typeof AuthClearCuttingsMapLazyImport
-      parentRoute: typeof AuthImport
+      preLoaderRoute: typeof ClearCuttingsMapLazyImport
+      parentRoute: typeof rootRoute
     }
   }
 }
 
 // Create and export the route tree
 
-interface AuthRouteChildren {
-  AuthIndexLazyRoute: typeof AuthIndexLazyRoute
-  AuthClearCuttingsListLazyRoute: typeof AuthClearCuttingsListLazyRoute
-  AuthClearCuttingsMapLazyRoute: typeof AuthClearCuttingsMapLazyRoute
-}
-
-const AuthRouteChildren: AuthRouteChildren = {
-  AuthIndexLazyRoute: AuthIndexLazyRoute,
-  AuthClearCuttingsListLazyRoute: AuthClearCuttingsListLazyRoute,
-  AuthClearCuttingsMapLazyRoute: AuthClearCuttingsMapLazyRoute,
-}
-
-const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
-
 export interface FileRoutesByFullPath {
-  '': typeof AuthRouteWithChildren
+  '/': typeof IndexLazyRoute
+  '': typeof AuthRoute
   '/login': typeof LoginRoute
-  '/': typeof AuthIndexLazyRoute
-  '/clear-cuttings/list': typeof AuthClearCuttingsListLazyRoute
-  '/clear-cuttings/map': typeof AuthClearCuttingsMapLazyRoute
+  '/clear-cuttings/list': typeof ClearCuttingsListLazyRoute
+  '/clear-cuttings/map': typeof ClearCuttingsMapLazyRoute
 }
 
 export interface FileRoutesByTo {
+  '/': typeof IndexLazyRoute
+  '': typeof AuthRoute
   '/login': typeof LoginRoute
-  '/': typeof AuthIndexLazyRoute
-  '/clear-cuttings/list': typeof AuthClearCuttingsListLazyRoute
-  '/clear-cuttings/map': typeof AuthClearCuttingsMapLazyRoute
+  '/clear-cuttings/list': typeof ClearCuttingsListLazyRoute
+  '/clear-cuttings/map': typeof ClearCuttingsMapLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/_auth': typeof AuthRouteWithChildren
+  '/': typeof IndexLazyRoute
+  '/_auth': typeof AuthRoute
   '/login': typeof LoginRoute
-  '/_auth/': typeof AuthIndexLazyRoute
-  '/_auth/clear-cuttings/list': typeof AuthClearCuttingsListLazyRoute
-  '/_auth/clear-cuttings/map': typeof AuthClearCuttingsMapLazyRoute
+  '/clear-cuttings/list': typeof ClearCuttingsListLazyRoute
+  '/clear-cuttings/map': typeof ClearCuttingsMapLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | '/'
     | ''
     | '/login'
-    | '/'
     | '/clear-cuttings/list'
     | '/clear-cuttings/map'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/' | '/clear-cuttings/list' | '/clear-cuttings/map'
+  to: '/' | '' | '/login' | '/clear-cuttings/list' | '/clear-cuttings/map'
   id:
     | '__root__'
+    | '/'
     | '/_auth'
     | '/login'
-    | '/_auth/'
-    | '/_auth/clear-cuttings/list'
-    | '/_auth/clear-cuttings/map'
+    | '/clear-cuttings/list'
+    | '/clear-cuttings/map'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  AuthRoute: typeof AuthRouteWithChildren
+  IndexLazyRoute: typeof IndexLazyRoute
+  AuthRoute: typeof AuthRoute
   LoginRoute: typeof LoginRoute
+  ClearCuttingsListLazyRoute: typeof ClearCuttingsListLazyRoute
+  ClearCuttingsMapLazyRoute: typeof ClearCuttingsMapLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  AuthRoute: AuthRouteWithChildren,
+  IndexLazyRoute: IndexLazyRoute,
+  AuthRoute: AuthRoute,
   LoginRoute: LoginRoute,
+  ClearCuttingsListLazyRoute: ClearCuttingsListLazyRoute,
+  ClearCuttingsMapLazyRoute: ClearCuttingsMapLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -183,32 +172,27 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
+        "/",
         "/_auth",
-        "/login"
+        "/login",
+        "/clear-cuttings/list",
+        "/clear-cuttings/map"
       ]
     },
+    "/": {
+      "filePath": "index.lazy.tsx"
+    },
     "/_auth": {
-      "filePath": "_auth.tsx",
-      "children": [
-        "/_auth/",
-        "/_auth/clear-cuttings/list",
-        "/_auth/clear-cuttings/map"
-      ]
+      "filePath": "_auth.tsx"
     },
     "/login": {
       "filePath": "login.tsx"
     },
-    "/_auth/": {
-      "filePath": "_auth.index.lazy.tsx",
-      "parent": "/_auth"
+    "/clear-cuttings/list": {
+      "filePath": "clear-cuttings.list.lazy.tsx"
     },
-    "/_auth/clear-cuttings/list": {
-      "filePath": "_auth.clear-cuttings.list.lazy.tsx",
-      "parent": "/_auth"
-    },
-    "/_auth/clear-cuttings/map": {
-      "filePath": "_auth.clear-cuttings.map.lazy.tsx",
-      "parent": "/_auth"
+    "/clear-cuttings/map": {
+      "filePath": "clear-cuttings.map.lazy.tsx"
     }
   }
 }

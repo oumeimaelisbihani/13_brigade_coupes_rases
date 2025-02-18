@@ -12,7 +12,7 @@ export type Role = z.infer<typeof roleSchema>;
 export const commonUserSchema = z.object({
 	login: z.string(),
 	email: z.string(),
-	avatarUrl: z.string().url(),
+	avatarUrl: z.string().url().optional(),
 });
 
 const specificUserPropertiesSchema = z.discriminatedUnion("role", [
@@ -28,4 +28,3 @@ export const userSchema = commonUserSchema.and(specificUserPropertiesSchema);
 export type User = z.infer<typeof userSchema>;
 export type Volunteer = User & { role: "volunteer" };
 export type Administrator = User & { role: "administrator" };
-export type Visitor = User & { role: "visitor" };

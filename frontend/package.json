@@ -10,8 +10,7 @@
 		"cleanup": "biome check --write",
 		"build": "pnpm cleanup && tsc -b && vite build",
 		"preview": "pnpm build && vite preview",
-		"test": "vitest",
-		"test:preview": "vitest-preview",
+		"test": "vitest ",
 		"coverage": "vitest run --coverage",
 		"generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 public/logo-association-canopee.svg"
 	},

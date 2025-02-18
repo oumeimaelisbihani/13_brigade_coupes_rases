@@ -14,14 +14,6 @@ export const mockLogin = http.post("*/login", async ({ request }) => {
 			avatarUrl,
 		} satisfies User);
 	}
-	if (email.includes("visitor" satisfies Role)) {
-		return HttpResponse.json({
-			role: "visitor",
-			email,
-			login,
-			avatarUrl,
-		} satisfies User);
-	}
 	return HttpResponse.json({
 		role: "volunteer",
 		departments: [],
