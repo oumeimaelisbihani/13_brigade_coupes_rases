@@ -33,6 +33,12 @@
   aws_secret_access_key = YOUR_SECRET_KEY
   ```
 
+- Run the following command to list the files that will be downloaded from S3:
+
+  ```bash
+  aws s3 ls s3://brigade-coupe-rase-s3/analytics/data/ --recursive --profile d4g-s13-brigade-coupes-rases
+  ```
+
 - Run the following command from the root of your project to sync local files with the S3 data storage:
 
   ```bash
