@@ -2,7 +2,7 @@ import { AsideList } from "@/features/clear-cutting/components/List";
 import { AppLayout } from "@/shared/components/AppLayout";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
-export const Route = createLazyFileRoute("/clear-cuttings/list")({
+export const Route = createLazyFileRoute("/_auth/clear-cuttings/list")({
 	component: RouteComponent,
 });
 

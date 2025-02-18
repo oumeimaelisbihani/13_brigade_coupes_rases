@@ -4,6 +4,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 
+import { AuthProvider, useAuth } from "@/features/user/components/Auth.context";
 import "./index.css";
 import { store } from "./shared/store/store";
 async function enableMocking() {
@@ -17,12 +18,22 @@ async function enableMocking() {
 	// once the Service Worker is up and ready to intercept requests.
 	return worker.start();
 }
-
+function App() {
+	return (
+		<AuthProvider>
+			<InnerApp />
+		</AuthProvider>
+	);
+}
+function InnerApp() {
+	const auth = useAuth();
+	return <RouterProvider router={router} context={{ auth }} />;
+}
 enableMocking().then(() => {
 	createRoot(document.getElementById("root") as HTMLElement).render(
 		<StrictMode>
 			<Provider store={store}>
-				<RouterProvider router={router} />
+				<App />
 			</Provider>
 		</StrictMode>,
 	);
