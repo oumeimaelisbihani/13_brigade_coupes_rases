@@ -1,6 +1,5 @@
 import { Login } from "@/features/user/components/Login";
 import { selectLoggedUser } from "@/features/user/store/user.slice";
-import { AppLayout } from "@/shared/components/AppLayout";
 import { useAppSelector } from "@/shared/hooks/store";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useEffect } from "react";
@@ -36,6 +35,5 @@ function RouteComponent() {
 				<Login />
 			</div>
 		</div>
-
 	);
 }

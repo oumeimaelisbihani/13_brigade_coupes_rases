@@ -1,3 +1,5 @@
+import canopeeWhiteIcon from "@/assets/canopee_icon-blanc-simplifiee-rvb.png";
+import homeIcon from "@/assets/home-icon.svg";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
 	DropdownMenuContent,
@@ -12,14 +14,8 @@ import {
 	DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { Link, useNavigate, useRouter } from "@tanstack/react-router";
-import canopeeWhiteIcon from "@/assets/canopee_icon-blanc-simplifiee-rvb.png";
-import homeIcon from "@/assets/home-icon.svg"
-import clsx from "clsx";
 
-interface Props {
-	className?: string;
-}
-export function Navbar({ className }: Props) {
+export function Navbar() {
 	const user = useAppSelector(selectLoggedUser);
 	const router = useRouter();
 	const navigate = useNavigate();
@@ -31,19 +27,19 @@ export function Navbar({ className }: Props) {
 	};
 	const dispatch = useAppDispatch();
 	return (
-		<nav
-			className="flex flex-col item-center gap-16 bg-[#204933] shadow z-max min-w-24 max-w-24"
-		>
+		<nav className="flex flex-col item-center gap-16 bg-[#204933] shadow z-max min-w-20 max-w-20">
 			<img
 				alt="Canopée"
 				src={canopeeWhiteIcon}
-				className="h-auto w-auto aspect-square object-cover mt-6 mx-6"
+				className="h-auto w-auto aspect-square object-cover mt-6 mx-4"
 			/>
 			<div className="flex flex-col gap-10 items-center">
-				<Link
-					to="/map/list"
-				>
-					<img alt="Accueil" src={homeIcon} className="h-8 w-auto aspect-square object-fill"/>
+				<Link to="/map/list">
+					<img
+						alt="Accueil"
+						src={homeIcon}
+						className="h-8 w-auto aspect-square object-fill"
+					/>
 				</Link>
 				{!user && (
 					<Link

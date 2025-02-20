@@ -1,8 +1,12 @@
 import { Toaster } from "@/components/ui/toaster";
 import { useReloadPwa } from "@/features/offline/hooks/useReloadPwa";
-import { AuthContext } from "@/features/user/components/Auth.context";
+import type { AuthContext } from "@/features/user/components/Auth.context";
 import { AppLayout } from "@/shared/components/AppLayout";
-import { createRootRouteWithContext, Navigate, Outlet } from "@tanstack/react-router";
+import {
+	Navigate,
+	Outlet,
+	createRootRouteWithContext,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
 interface RouterContext {
