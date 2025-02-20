@@ -12,6 +12,7 @@ import {
 	DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import { Link, useNavigate, useRouter } from "@tanstack/react-router";
+import canopeeWhiteIcon from "@/assets/canopee_icon-blanc-simplifiee-rvb.png";
 import clsx from "clsx";
 
 interface Props {
@@ -37,7 +38,7 @@ export function Navbar({ className }: Props) {
 		>
 			<img
 				alt="Canopée"
-				src="src/assets/canopee_icon-blanc-simplifiee-rvb.png"
+				src={canopeeWhiteIcon}
 				className="h-auto w-auto aspect-square object-cover pt-6 px-4"
 			/>
 			<div className="flex grow">

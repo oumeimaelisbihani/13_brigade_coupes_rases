@@ -18,7 +18,15 @@ export function AsideList() {
 						key={clearCutting.id}
 						className="col-span-1 flex flex-col divide-y divide-gray-200  rounded-lg bg-white text-center shadow"
 					>
-						<Card className="cursor-pointer" onClick={() => navigate({ to: '/map/report/$reportId', params : { reportId: clearCutting.id}})}>
+						<Card
+							className="cursor-pointer"
+							onClick={() =>
+								navigate({
+									to: "/map/report/$reportId",
+									params: { reportId: clearCutting.id },
+								})
+							}
+						>
 							<CardContent className="pt-6">
 								{clearCutting.imageUrl && (
 									<div

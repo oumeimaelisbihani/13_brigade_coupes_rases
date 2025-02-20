@@ -1,5 +1,4 @@
 import { Toaster } from "@/components/ui/toaster";
-import { InteractiveMap } from "@/features/clear-cutting/components/map/InteractiveMap";
 import { useReloadPwa } from "@/features/offline/hooks/useReloadPwa";
 import { AppLayout } from "@/shared/components/AppLayout";
 import { Navigate, Outlet, createRootRoute } from "@tanstack/react-router";
@@ -10,7 +9,7 @@ interface RouterContext {
 }
 export const Route = createRootRouteWithContext<RouterContext>()({
 	component: RootComponent,
-	notFoundComponent: () => <Navigate to="/" />
+	notFoundComponent: () => <Navigate to="/" />,
 });
 
 function RootComponent() {
