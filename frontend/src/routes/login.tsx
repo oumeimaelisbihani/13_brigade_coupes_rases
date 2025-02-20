@@ -31,12 +31,11 @@ function RouteComponent() {
 		redirect();
 	}, [loggedUser, navigate]);
 	return (
-		<AppLayout>
-			<div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-				<div className="w-full max-w-sm">
-					<Login />
-				</div>
+		<div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+			<div className="w-full max-w-sm">
+				<Login />
 			</div>
-		</AppLayout>
+		</div>
+
 	);
 }

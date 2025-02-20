@@ -13,6 +13,7 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 import { Link, useNavigate, useRouter } from "@tanstack/react-router";
 import canopeeWhiteIcon from "@/assets/canopee_icon-blanc-simplifiee-rvb.png";
+import homeIcon from "@/assets/home-icon.svg"
 import clsx from "clsx";
 
 interface Props {
@@ -31,30 +32,19 @@ export function Navbar({ className }: Props) {
 	const dispatch = useAppDispatch();
 	return (
 		<nav
-			className={clsx(
-				className,
-				"flex-col h-screen bg-[#204933] shadow items-center z-max w-32",
-			)}
+			className="flex flex-col item-center gap-16 bg-[#204933] shadow z-max min-w-24 max-w-24"
 		>
 			<img
 				alt="Canopée"
 				src={canopeeWhiteIcon}
-				className="h-auto w-auto aspect-square object-cover pt-6 px-4"
+				className="h-auto w-auto aspect-square object-cover mt-6 mx-6"
 			/>
-			<div className="flex grow">
-				{/* <Link
-					to="/clear-cuttings/map"
-					activeProps={{
-						className: "border-green-500  text-gray-900",
-					}}
-					inactiveProps={{
-						className:
-							"border-transparent  text-gray-500 hover:border-gray-300 hover:text-gray-700",
-					}}
-					className="inline-flex items-center border-b-2 h-full px-1 pt-1 text-sm font-medium "
+			<div className="flex flex-col gap-10 items-center">
+				<Link
+					to="/map/list"
 				>
-					Coupes rases
-				</Link> */}
+					<img alt="Accueil" src={homeIcon} className="h-8 w-auto aspect-square object-fill"/>
+				</Link>
 				{!user && (
 					<Link
 						to="/login"
