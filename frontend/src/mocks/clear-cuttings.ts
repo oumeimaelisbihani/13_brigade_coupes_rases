@@ -1,4 +1,5 @@
 import type {
+	ClearCutting,
 	ClearCuttingPreview,
 	ClearCuttingsResponse,
 } from "@/features/clear-cutting/store/clear-cuttings";
@@ -41,6 +42,27 @@ export const mockClearCuttings = http.get("*/clear-cuttings", () => {
 		waterCourses: [],
 	} satisfies ClearCuttingsResponse);
 });
+
+export const mockClearCutting = http.get(
+	"*/clear-cuttings/:clearCuttingId",
+	({ params }) => {
+		const { clearCuttingId } = params as { clearCuttingId: string };
+		return HttpResponse.json({
+			id: clearCuttingId,
+			geoCoordinates: [francRandomPointMock()],
+			cutYear: 2024,
+			address: {
+				streetName: "Nom de rue",
+				streetNumber: "11",
+				postalCode: "54000",
+				city: "Nancy",
+				country: "France",
+			},
+			imageUrls: [],
+			status: "toValidate",
+		} satisfies ClearCutting);
+	},
+);
 const francRandomPointMock = (): [number, number] => [
 	faker.location.latitude({
 		min: 43.883918307385926,

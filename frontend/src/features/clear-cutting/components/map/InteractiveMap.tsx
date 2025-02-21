@@ -1,6 +1,5 @@
 import { ClearCuttings } from "@/features/clear-cutting/components/map/ClearCuttings";
 import { useMapInstance } from "@/features/clear-cutting/components/map/Map.context";
-import { useGeolocation } from "@/shared/hooks/geolocation";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 import type { LatLngExpression } from "leaflet";
 import { useEffect } from "react";
@@ -10,8 +9,8 @@ const franceCenter: LatLngExpression = [46.695554, 2.440236];
 const wholeFranceZoom = 7;
 
 export function InteractiveMap() {
-	const { browserLocation } = useGeolocation();
-	console.log(browserLocation);
+	// const { browserLocation } = useGeolocation();
+	// console.log(browserLocation);
 
 	const { setMap } = useMapInstance();
 
@@ -39,7 +38,7 @@ export function InteractiveMap() {
 				</MapContainer>
 			</main>
 
-			<div className="lg:inset-y-0 lg:z-50 lg:flex lg:w-200 lg:flex-col px-0.5">
+			<div className="m-3 lg:inset-y-0 lg:z-50 lg:flex lg:w-200 lg:flex-col px-0.5">
 				<Outlet />
 			</div>
 		</>
