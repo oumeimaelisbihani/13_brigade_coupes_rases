@@ -92,3 +92,11 @@ const createClearCutting = (): ClearCuttingPreview => ({
 	imageUrl: faker.image.url(),
 	geoCoordinates: [],
 });
+
+export const assignClearCutting = (clearCuttingId?: string) => {
+	console.log('clearCuttingId', clearCuttingId);
+}
+
+export const isUserConnected = () => {
+	return true;
+}

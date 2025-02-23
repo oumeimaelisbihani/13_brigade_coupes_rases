@@ -1,5 +1,6 @@
 import { AccordionFullItem } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import GeneralInformations from "@/features/clear-cutting/components/details/General";
 import { useMapInstance } from "@/features/clear-cutting/components/map/Map.context";
 import { useGetClearCuttingQuery } from "@/features/clear-cutting/store/api";
 import { skipToken } from "@reduxjs/toolkit/query";
@@ -12,20 +13,33 @@ type AsideFormProps = {
 	clearCuttingId?: string;
 };
 
-const titleSection = [
-	"Informations générales",
-	"Terrain",
-	"Zonages écologiques",
-	"Acteurs engagés",
-	"Réglementations",
-	"Autres informations",
-	"Sratégie juridique",
-];
-
 export function AsideForm({ clearCuttingId }: AsideFormProps) {
 	const { data } = useGetClearCuttingQuery(clearCuttingId ?? skipToken);
 	const { map } = useMapInstance();
-
+	const sections = [
+		{
+		   title: "Informations générales",
+		   component: <GeneralInformations clearCuttingId={clearCuttingId} />
+		},
+		{
+		   title: "Terrain",
+		},
+		{
+		   title: "Zonages écologiques",
+		},
+		{
+		   title: "Acteurs engagés",
+		},
+		{
+		   title: "Réglementations",
+		},
+		{
+		   title: "Autres informations",
+		},
+		{
+		   title: 	"Sratégie juridique",
+		}
+   ];
 	useEffect(() => {
 		if (map && data) {
 			map.flyTo(data?.geoCoordinates[0], 10, { duration: 1 });
@@ -42,8 +56,8 @@ export function AsideForm({ clearCuttingId }: AsideFormProps) {
 			</div>
 			<div className="overflow-scroll p-2 flex flex-col">
 				<Accordion.Root type="multiple">
-					{titleSection.map((sectionName) => (
-						<AccordionFullItem key={sectionName} title={sectionName} />
+					{sections.map((section) => (
+						<AccordionFullItem key={section.title} title={section.title} content={section.component} />
 					))}
 				</Accordion.Root>
 
