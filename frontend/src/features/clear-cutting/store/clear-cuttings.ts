@@ -22,6 +22,7 @@ const clearCuttingPreviewSchema = z.object({
 	geoCoordinates: z.array(pointSchema),
 	center: pointSchema,
 	name: z.string().optional(),
+	assignee: z.string().optional(),
 	cutYear: z.number(),
 	address: z.object({
 		postalCode: z.string(),

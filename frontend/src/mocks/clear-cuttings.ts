@@ -85,6 +85,7 @@ const createClearCutting = (): ClearCuttingPreview => ({
 		postalCode: faker.location.zipCode(),
 	},
 	status: "validated",
+	assignee: faker.string.uuid(),
 	name: faker.animal.dog(),
 	cutYear: 2021,
 	id: faker.string.uuid(),
