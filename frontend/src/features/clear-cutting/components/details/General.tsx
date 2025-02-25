@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { assignClearCutting, isUserConnected } from "@/mocks/clear-cuttings";
+import { assignClearCutting, isUserConnected, isClearCuttingAssigned } from "@/mocks/clear-cuttings";
 
 type GeneralInformationsProps = {
 	clearCuttingId?: string;
@@ -8,7 +8,7 @@ type GeneralInformationsProps = {
 export function GeneralInformations({ clearCuttingId }: GeneralInformationsProps) {
     return (
 		<>
-          {isUserConnected() && <Button v-if={isUserConnected()} className="w-full" onClick={() => assignClearCutting(clearCuttingId)}>S'assigner la coupe rase</Button>}
+          {isUserConnected() && <Button v-if={isUserConnected()} className="sm" disabled={isClearCuttingAssigned(clearCuttingId)} onClick={() => assignClearCutting(clearCuttingId)}>S'assigner la coupe rase</Button>}
         </>
     )
 }

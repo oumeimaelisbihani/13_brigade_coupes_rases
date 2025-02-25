@@ -7,6 +7,9 @@ import type { FiltersResponse } from "@/features/clear-cutting/store/filters";
 import { range } from "@/shared/array";
 import { faker } from "@faker-js/faker";
 import { http, HttpResponse } from "msw";
+import { useGetClearCuttingQuery } from "@/features/clear-cutting/store/api";
+import { skipToken } from "@reduxjs/toolkit/query";
+
 export const mockFilters = http.get("*/filters", () => {
 	return HttpResponse.json({
 		cutYears: [2021, 2022],
@@ -96,6 +99,11 @@ const createClearCutting = (): ClearCuttingPreview => ({
 
 export const assignClearCutting = (clearCuttingId?: string) => {
 	console.log('clearCuttingId', clearCuttingId);
+}
+
+export const isClearCuttingAssigned = (clearCuttingId?: string) => {
+	const { data } = useGetClearCuttingQuery(clearCuttingId ?? skipToken);
+	return data && data.assignee
 }
 
 export const isUserConnected = () => {
